@@ -8,6 +8,7 @@
 #include <sys/uio.h>
 #include <time.h>
 #include <unistd.h>
+#include <errno.h>
 
 static const uint8_t AES_KEY[16] = {                //Verschlüsselungs-Schlüssel
     0x2B, 0x2B, 0x2B, 0x2B, 0x2B, 0x2B, 0x2B, 0x2B,
