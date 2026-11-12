@@ -117,8 +117,11 @@ int receiveBatch(int fd) {
         msgs[i].msg_hdr.msg_iovlen = 1;
     }
     
-    int n = recvmmsg(fd, msgs, RECV_BATCH, MSG_WAITFORONE, NULL);
+    int n = recvmmsg(fd, msgs, RECV_BATCH, MSG_WAITFORONE | MSG_DONTWAIT, NULL);
     if (n < 0) {
+        if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            return 0;       // aktuell kein Paket da, kein Fehler
+        }
         perror("recvmmsg");
         return -1;
     }
